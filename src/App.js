@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import BasicNev from './Components/BasicNev';
+import Showcase from './Components/Showcase';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { UserPorvider, UserConsumer } from './Components/UserContext.jsx';
+
+class App extends Component {
+    render() {
+        return (
+            <UserPorvider>
+                <div className="container">
+                    <div className="row">
+                        <UserConsumer>
+                            {({ isAuthenticated }) => (
+                                <div className="col-sm-6 offset-sm-3">
+                                    <h1 className="my-2">
+                                        Learning Context Api
+                                    </h1>
+                                    <hr />
+                                    <BasicNev />
+                                    <hr />
+                                    {isAuthenticated && <Showcase />}
+                                </div>
+                            )}
+                        </UserConsumer>
+                    </div>
+                </div>
+            </UserPorvider>
+        );
+    }
 }
 
 export default App;
